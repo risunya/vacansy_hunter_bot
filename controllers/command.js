@@ -1,31 +1,28 @@
-const { mainMenu, vacanciesMenu, aboutMenu } = require("../utils/buttons");
+const { getData } = require("../services/getapi");
+const { mainMenu, aboutMenu } = require("../utils/buttons");
 
 const start = ctx => ctx.reply('Привет, я тот самый бот, который поможет тебе найти все интересущие тебя вакансии!', {
     ...mainMenu
 })
 
-const vacancies = ctx => {
-    let dataArray = [];
-    fetch('https://api.hh.ru/vacancies/')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Ошибка при получении данных: ' + response.status);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Проходим по каждой вакансии и выводим только названия
-    data.items.forEach(vacancy => {
-        dataArray.push(vacancy.name);
-    });
+let pagenumber = 0;
 
-    ctx.reply(`Доступные вакансии: 📜 \n\n ${dataArray.join('\n')}` , {
-        ...vacanciesMenu
-    }) 
-  })
-  .catch(error => {
-    console.error('Произошла ошибка:', error);
-  });
+const vacancies = (ctx) => {
+    getData(ctx, pagenumber)
+}
+
+const vacanciesNext = (ctx) => {
+    pagenumber = pagenumber + 1;
+    getData(ctx, pagenumber )
+}
+
+const vacanciesPrev = (ctx) => {
+    if (pagenumber>=1) {
+        pagenumber = pagenumber - 1;
+        getData(ctx, pagenumber )
+    } else {
+        getData(ctx, 0 )
+    }
 }
 
 const about = ctx => ctx.reply('Привет, меня зовут Андрей! 🛠️ \nЯ создатель данного бота. 🧰 \n\nЕсли вы заметили баги или у вас есть предложения по сотрудничеству - обязательно напишите мне: @risunya 🙋‍♂️ ', {
@@ -36,4 +33,6 @@ module.exports = {
     start,
     vacancies,
     about,
+    vacanciesNext,
+    vacanciesPrev
 }
