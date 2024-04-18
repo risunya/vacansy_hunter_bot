@@ -1,18 +1,24 @@
-require('dotenv').config({ path: './config/.env' });
+const { Telegraf, Markup } = require('telegraf');
+const { start, vacancies, about } = require('./controllers/command');
 
-const mongoose = require('mongoose');
-const { setupBot } = require('./bot');
+const bot = new Telegraf('6997313003:AAE89uPIv4W9BoJVwegBLSoagozlXHG5HzY');
 
-(async function() {
-    try {
-        await mongoose.connect(process.env.DB_TOKEN, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
-            dbName: 'tgBot'
-        });
 
-        await setupBot().launch();
-    } catch (error) {
-        console.error(error);
-    }
-})();
+bot.action('vacancy-intro', (ctx) => {
+    vacancies(ctx);
+})
+
+bot.action('back-to-menu', (ctx) => {
+    start(ctx);
+})
+
+bot.action('about-button', (ctx) => {
+    about(ctx);
+})
+
+
+
+bot.start(start);
+
+
+bot.launch();

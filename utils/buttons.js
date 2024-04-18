@@ -1,26 +1,27 @@
-const { Markup } = require("telegraf");
-const { CMD_TEXT } = require("../config/consts");
+const {Markup} = require('telegraf');
+
 
 const mainMenu = 
-    Markup.keyboard([
-        [CMD_TEXT.weatherI],
-        [CMD_TEXT.weatherNoI]
+    Markup.inlineKeyboard([
+            [Markup.button.callback('Найти вакансии', 'vacancy-intro'),
+             Markup.button.callback('О создателе', 'about-button')]
     ]).resize();
 
-
-const backButtonMenu = 
-    Markup.keyboard([
-        [CMD_TEXT.menu]
+const vacanciesMenu =
+    Markup.inlineKeyboard([
+        [Markup.button.callback('⬅️', 'left-controller'),
+        Markup.button.callback('➡️', 'right-controller')],
+        [Markup.button.callback('↩️ В меню', 'back-to-menu')]
     ]).resize();
 
-const backButtonMenuAndLocation = 
-    Markup.keyboard([
-        Markup.button.locationRequest('Мое местоположение'),
-        Markup.button.text(CMD_TEXT.menu)
+ const aboutMenu = 
+    Markup.inlineKeyboard([
+             [Markup.button.callback('↩️ В меню', 'back-to-menu')]
     ]).resize();
+
 
 module.exports = {
     mainMenu,
-    backButtonMenu,
-    backButtonMenuAndLocation
+    vacanciesMenu,
+    aboutMenu
 }
