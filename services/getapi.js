@@ -10,13 +10,20 @@ getData = (ctx, pagenumber) => {
     }
     return response.json();
   })
-  .then(data => {
+  .then((data) => {
     // Проходим по каждой вакансии и выводим только названия
     data.items.forEach(vacancy => {
-        dataArray.push(' ' + vacancy.name + '\n ' + vacancy.salary?.from + ' ' + vacancy.salary?.currency + '\n');
-    });
 
-    ctx.reply(`Доступные вакансии: 📜 \n\n${dataArray.join('\n')}` , {
+        let payday = (
+          (vacancy?.salary?.from === undefined && vacancy?.salary?.to === undefined) ? ('Не указано') : (
+            (vacancy?.salary?.from === null) ? `До ${vacancy?.salary?.to + ' ' + vacancy?.salary?.currency}` :
+            (vacancy?.salary?.to === null) ? `От ${vacancy?.salary?.from + ' ' + vacancy?.salary?.currency}` :
+            `${vacancy?.salary?.from + ' - ' + vacancy?.salary?.to  + ' (' + vacancy?.salary?.currency + ')'}`
+          )) 
+
+        dataArray.push(' ' + vacancy.name + '\n ' + payday  + `\n ${vacancy.alternate_url} \n`)
+    });
+    ctx.reply(`📜 Доступные вакансии: (${data.page + 1}/${data.pages}) \n\n${dataArray.join('\n')}` , {
         ...vacanciesMenu
     }) 
   })

@@ -1,7 +1,11 @@
 const { getData } = require("../services/getapi");
 const { mainMenu, aboutMenu } = require("../utils/buttons");
 
-const start = ctx => ctx.reply('Привет, я тот самый бот, который поможет тебе найти все интересущие тебя вакансии!', {
+const start = ctx => ctx.reply(`Привет, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}, я тот самый бот, который поможет тебе найти все интересущие тебя вакансии!`, {
+    ...mainMenu
+})
+
+const backtostart = ctx => ctx.reply(`А я все еще - тот самый бот, который помогает искать все интересущие тебя вакансии!`, {
     ...mainMenu
 })
 
@@ -34,5 +38,6 @@ module.exports = {
     vacancies,
     about,
     vacanciesNext,
-    vacanciesPrev
+    vacanciesPrev,
+    backtostart
 }
