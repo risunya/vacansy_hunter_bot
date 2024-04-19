@@ -1,24 +1,16 @@
-const {Markup} = require('telegraf');
+const { InlineKeyboard } = require('grammy');
 
+const mainMenu = new InlineKeyboard()
+    .text('Найти вакансии', 'vacancy-intro')
+    .text('О создателе', 'about-button')
 
-const mainMenu = 
-    Markup.inlineKeyboard([
-            [Markup.button.callback('Найти вакансии', 'vacancy-intro'),
-             Markup.button.callback('О создателе', 'about-button')]
-    ]).resize();
+const vacanciesMenu = new InlineKeyboard()
+    .text('⬅️', 'left-controller')
+    .text('➡️', 'right-controller')
+    .text('↩️ В меню', 'back-to-menu')
 
-const vacanciesMenu =
-    Markup.inlineKeyboard([
-        [Markup.button.callback('⬅️', 'left-controller'),
-        Markup.button.callback('➡️', 'right-controller')],
-        [Markup.button.callback('↩️ В меню', 'back-to-menu')]
-    ]).resize();
-
- const aboutMenu = 
-    Markup.inlineKeyboard([
-             [Markup.button.callback('↩️ В меню', 'back-to-menu')]
-    ]).resize();
-
+ const aboutMenu = new InlineKeyboard()
+    .text('↩️ В меню', 'back-to-menu')
 
 module.exports = {
     mainMenu,

@@ -24,7 +24,8 @@ getData = (ctx, pagenumber) => {
         dataArray.push(' ' + vacancy.name + '\n ' + payday  + `\n ${vacancy.alternate_url} \n`)
     });
     ctx.reply(`📜 Доступные вакансии: (${data.page + 1}/${data.pages}) \n\n${dataArray.join('\n')}` , {
-        ...vacanciesMenu
+      parse_mode: 'HTML',
+      reply_markup: vacanciesMenu,
     }) 
   })
   .catch(error => {
