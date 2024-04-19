@@ -36,7 +36,7 @@ MONGODB_URI=your_mongodb_uri*
 
 **5. Запустите приложение:**
 
-*npm start*
+*npm run dev*
 
 ## Автор 🧙🏾
 
