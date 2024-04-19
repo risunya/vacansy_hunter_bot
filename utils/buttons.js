@@ -1,4 +1,4 @@
-const { InlineKeyboard } = require('grammy');
+const { InlineKeyboard, Keyboard } = require('grammy');
 
 const mainMenu = new InlineKeyboard()
     .text('Найти вакансии', 'vacancy-intro')
@@ -9,11 +9,14 @@ const vacanciesMenu = new InlineKeyboard()
     .text('➡️', 'right-controller')
     .text('↩️ В меню', 'back-to-menu')
 
- const aboutMenu = new InlineKeyboard()
+const aboutMenu = new InlineKeyboard()
     .text('↩️ В меню', 'back-to-menu')
 
-module.exports = {
+const helpMenu = new Keyboard().text('Вернуться в меню').row().resized().oneTime()
+    
+    module.exports = {
     mainMenu,
     vacanciesMenu,
-    aboutMenu
+    aboutMenu,
+    helpMenu
 }
