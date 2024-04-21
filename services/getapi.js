@@ -1,6 +1,5 @@
 const { vacanciesMenu } = require("../utils/buttons");
 
-
 getData = (ctx, pagenumber) => {
     let dataArray = [];
     fetch(`https://api.hh.ru/vacancies?per_page=5&page=${pagenumber}`)
