@@ -15,9 +15,6 @@ function clearCommandMessage (ctx) {
      }
 }
 
-
-
-
 module.exports = {
     clearBotMessage,
     clearCommandMessage,

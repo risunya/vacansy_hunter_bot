@@ -13,7 +13,7 @@ const backtostart = ctx => ctx.reply(`
 
 👾 _*1\\. Мы удобнее \\!*_
 👾 _*2\\. Мы быстрее \\!*_
-👾 _*3\\. Мы [безопаснее](https://nodejs.org/en/learn/getting-started/security-best-practices) \\!*_
+👾 _*3\\. Мы [безопаснее](https://nodejs.org/en/learn/getting-started/security-best-practices) \\!*_    
 `, 
 {
     parse_mode: 'MarkdownV2',

@@ -15,16 +15,14 @@ const aboutMenu = new InlineKeyboard()
 const helpMenu = new Keyboard().text('Вернуться в меню').row().resized().oneTime()
 
 const dialogCityMenu = new InlineKeyboard()
-    .text('Москва',"first-step").row()
-    .text('Санкт-Петербург',"first-step").row()
-    .text('Казань',"first-step").row()
-    .text('Новгород',"first-step").row()
-    .text('Челябинск',"first-step").row()
+    .text('Москва',"first-city").row()
+    .text('Санкт-Петербург',"second-city").row()
+    .text('Казань',"third-city").row()
 
 const dialogExpirienceMenu = new InlineKeyboard()
-    .text('Нет опыта', "second-step").row()
-    .text('От 1 года до 3 лет', "second-step")
-    .text('От 3 до 6 лет', "second-step")
+    .text('Нет опыта', "f-exp").row()
+    .text('От 1 года до 3 лет', "s-exp")
+    .text('От 3 до 6 лет', "t-exp")
     
     module.exports = {
     mainMenu,
