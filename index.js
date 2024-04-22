@@ -6,6 +6,8 @@ const { vacancies, vacanciesNext, vacanciesPrev } = require('./scenes/search-men
 const { about } = require('./scenes/about-me');
 const { faq } = require('./commands/faq');
 const { support } = require('./commands/support');
+const { clearCommandMessage, clearBotMessage } = require('./services/clear');
+const { searchFirstQuestion, searchSecondQuestion } = require('./scenes/search-dialog');
 
 const bot = new Bot(process.env.BOT_TOKEN);
 
@@ -21,6 +23,10 @@ bot.api.setMyCommands([
     {
         command: 'support',
         description: 'Получить помощь',
+    },
+    {
+        command: 'clear',
+        description: 'Полностью удалить историю сообщений',
     }
 ])
   
@@ -32,16 +38,16 @@ bot.command('start', async(ctx) => {
 
 bot.command('faq', async(ctx) => {
     await faq(ctx);
-    clearCommandMessage(ctx);
+    await clearCommandMessage(ctx);
 })
 
 bot.command('support', async(ctx) => {
     await support(ctx);
-    clearCommandMessage(ctx);
+    await clearCommandMessage(ctx);
 })
 
 bot.callbackQuery('vacancy-intro', async(ctx) => {
-    await vacancies(ctx);
+    searchFirstQuestion(ctx);
     clearBotMessage(ctx);
 })
 
@@ -65,13 +71,22 @@ bot.callbackQuery('about-button', (ctx) => {
     clearBotMessage(ctx);
 })
 
-bot.hears('Вернуться в меню',  async (ctx) => {
-    await vacancies(ctx);
-    clearCommandMessage(ctx);
+bot.callbackQuery('first-step', (ctx) => {
+    searchSecondQuestion(ctx);
+    clearBotMessage(ctx);
+})
+
+bot.callbackQuery('second-step', (ctx) => {
+    vacancies(ctx);
+    clearBotMessage(ctx);
+})
+
+bot.hears('Вернуться в меню',  (ctx) => {
+    vacancies(ctx);
+    clearCommandMessage(ctx);   
 })
 
 bot.on('message:text', async (ctx) => {
-    await ctx.react('🤔');
     await ctx.reply(`
 ⚠️ _К сожалению, *я не понимаю вас*\\. Пожалуйста, воспользуйтесь *коммандами бота* или *кнопкой ниже*\\._  `,
      {
@@ -81,22 +96,6 @@ bot.on('message:text', async (ctx) => {
     clearCommandMessage(ctx);
 })
 
-function clearBotMessage (ctx) {
-    if (ctx.update?.callback_query?.message?.chat?.id != undefined && ctx?.update?.callback_query?.message?.message_id != undefined) {
-     ctx.api.deleteMessage(ctx.update.callback_query.message.chat.id, ctx.update.callback_query.message.message_id);
-    } else {
-        null
-    }
-}
 
-function clearCommandMessage (ctx) {
-     if (ctx?.message?.chat?.id != undefined && ctx?.message?.message_id != undefined) {
-        ctx.api.deleteMessage(ctx.message.chat.id, ctx.message.message_id - 1);
-        ctx.api.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
-     } else {
-        null
-     }
-}
-
-bot.start(start);
+bot.start();
 
