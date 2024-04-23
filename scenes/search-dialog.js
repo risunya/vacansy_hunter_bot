@@ -12,7 +12,6 @@ const searchFirstQuestion = ctx => ctx.reply(
 )
 
 const searchSecondQuestion = (ctx, city) =>  {
-    console.log(ctx,city)
     let message = (city == "1") ? 'Москву' :
     (city == "2") ? 'Питер мх' :
     'Екатеринбург';

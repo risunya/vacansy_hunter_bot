@@ -1,10 +1,9 @@
 const { vacanciesMenu } = require("../utils/buttons");
 
-getData = (ctx, city,expirience,pagenumber) => {
+getData = (ctx, city,expirience, pagenumber) => {
     let dataArray = [];
-    console.log(`https://api.hh.ru/vacancies?per_page=5&page=${pagenumber}&area=${city}&experience=${expirience}`)
     fetch(`https://api.hh.ru/vacancies?per_page=5&page=${pagenumber}&area=${city}&experience=${expirience}`)
-  .then(response => {
+  .then(response => { 
     if (!response.ok) {
       throw new Error('Ошибка при получении данных: ' + response.status);
     }
@@ -26,10 +25,10 @@ getData = (ctx, city,expirience,pagenumber) => {
         dataArray.push(`<u><a href="${vacancy.alternate_url}">${vacancy.name} </a></u>\n` + vacancy.experience.name + '\n<b>' + "🚀" + payday  + `</b>\n`)
     });
 
-    ctx.reply(`<b>📜 Вот, что нам удалось найти:</b> <i>(стр. ${data.page + 1}/${data.pages})</i> \n\n<i>${dataArray.join('\n')}</i>` , {
+    setTimeout(() => {ctx.reply(`<b>📜 Вот, что нам удалось найти:</b> <i>(стр. ${data.page + 1}/${data.pages})</i> \n\n<i>${dataArray.join('\n')}</i>` , {
       parse_mode: 'HTML',
       reply_markup: vacanciesMenu,
-    }) 
+    })},10 )
   })
 
   .catch(error => {

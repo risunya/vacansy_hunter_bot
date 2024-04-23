@@ -1,8 +1,8 @@
-const { Bot } = require('grammy');
+const { Bot, session } = require('grammy');
 require('dotenv').config({path: './config/.env'});
 const { helpMenu } = require('./utils/buttons');
 const { start, backtostart } = require('./scenes/start-menu');
-const { vacancies } = require('./scenes/search-menu');
+const { vacancies, vacanciesNext, vacanciesPrev } = require('./scenes/search-menu');
 const { about } = require('./scenes/about-me');
 const { faq } = require('./commands/faq');
 const { support } = require('./commands/support');
@@ -24,15 +24,15 @@ bot.api.setMyCommands([
         command: 'support',
         description: 'Получить помощь',
     },
-    {
-        command: 'clear',
-        description: 'Полностью удалить историю сообщений',
-    }
 ])
-  
-let city = '1';
-let expirience = '';
-let pagenumber = "";    
+
+bot.use(session({ initial: () => (
+    { 
+        cityStorage: '',
+        expirienceStorage: '',
+        pagenumberStorage: '',
+}) }));
+
 
 bot.command('start', async(ctx) => {
     await start(ctx);
@@ -49,12 +49,14 @@ bot.command('support', async(ctx) => {
     await clearCommandMessage(ctx);
 })
 
-bot.callbackQuery('right-controller', (ctx, city,expirience,pagenumber) => {
-    vacancies(ctx, city,expirience,pagenumber + 1);
+bot.callbackQuery('right-controller', (ctx) => {
+    vacanciesNext(ctx,cityStorage,expirienceStorage,pagenumberStorage);
+    clearBotMessage(ctx);
 })
 
-bot.callbackQuery('left-controller', (ctx, city,expirience,pagenumber) => {
-    vacancies(ctx, city,expirience,pagenumber - 1);
+bot.callbackQuery('left-controller', (ctx) => {
+    vacanciesPrev(ctx,cityStorage,expirienceStorage,pagenumberStorage);
+    clearBotMessage(ctx);
 })
 
 bot.callbackQuery('back-to-menu', (ctx) => {
@@ -76,15 +78,22 @@ bot.callbackQuery(['first-city',"second-city","third-city"], (ctx) => {
     city = (ctx.match == "first-city") ? "1" :
     ctx.match == "second-city" ?  "2" : 
     "3";
-    searchSecondQuestion(ctx, city);
+    cityStorage = (ctx.match == "first-city") ? "1" :
+    ctx.match == "second-city" ?  "2" : 
+    "3";
+    searchSecondQuestion(ctx, cityStorage);
     clearBotMessage(ctx);
 })
 
-bot.callbackQuery(['f-exp',"s-exp","t-exp"], (ctx, city) => {
-    exp = (ctx.match == "f-exp") ? "noExperience" :
+bot.callbackQuery(['f-exp',"s-exp","t-exp"], (ctx) => {
+    expirience = (ctx.match == "f-exp") ? "noExperience" :
     ctx.match == "s-exp" ?  "between1And3" : 
     "between3And6";
-    vacancies(ctx, city,expirience,pagenumber);
+    expirienceStorage = (ctx.match == "f-exp") ? "noExperience" :
+    ctx.match == "s-exp" ?  "between1And3" : 
+    "between3And6";
+    pagenumberStorage = 0;
+    vacancies(ctx,cityStorage,expirienceStorage,pagenumberStorage);
     clearBotMessage(ctx);
 })
 
