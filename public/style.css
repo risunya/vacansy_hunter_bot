@@ -1,6 +1,6 @@
 @media screen and (max-width: 576px) {
     html {
-        font-size: 4px !important;
+        font-size: 10px !important;
     }
 }
 @media screen and (min-width: 576.01px) and (max-width: 768px) {
@@ -9,12 +9,11 @@
     }
 }
 @media screen and (min-width: 768.01px) and (max-width: 992px) {
-    
     html {
         font-size: 12px;
     }
 }
-@media screen and (min-width: 99.012px) and (min-width: 1200px) {
+@media screen and (min-width: 992.01px) and (max-width: 1200px) {
     html {
         font-size: 14px;
     }
