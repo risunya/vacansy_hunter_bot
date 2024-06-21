@@ -1,3 +1,36 @@
+@media screen and (max-width: 576px) {
+    html {
+        font-size: 4px !important;
+    }
+}
+@media screen and (min-width: 576.01px) and (max-width: 768px) {
+    html {
+        font-size: 8px !important;
+    }
+}
+@media screen and (min-width: 768.01px) and (max-width: 992px) {
+    
+    html {
+        font-size: 12px;
+    }
+}
+@media screen and (min-width: 99.012px) and (min-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+}
+@media screen and (min-width: 1200.01px) and (max-width: 1400px) {
+    html {
+        font-size: 16px;
+    }
+}
+@media screen and (min-width: 1400.01px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -5,81 +38,84 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #333;
+.header {
+    background-color: #00bdd6;
     color: #fff;
-    padding: 20px;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.main-content {
+    padding: 1rem;
+    width: 80vw;
+    margin: 1rem auto;
+    border: solid rgb(221, 221, 221) 1px;
+}
+
+.content-header {
+    font-size: 2rem;
     text-align: center;
 }
-
-header h1 {
-    margin: 0;
-    font-size: 2em;
+.info-box {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.info-box__header {
+    font-size: 1.8rem;
+    margin: 0.5rem 0 0 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.2rem rgb(221, 221, 221) solid;
+}
+li.list-item, .list-item {
+    margin: 1rem 0 0 1rem;
+    font-size: 1rem;   
+ }
+.link-button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-decoration: none;
+    color: black;
+    border: 0.1rem solid black;
+    border-radius: 2.5rem;
+    margin: 0.5rem 1rem;
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem; 
+    width: 4rem;
+    transition: .3s;
+}
+.link-button:hover {
+    background-color: black;
+    color: white;
+}
+.link-button:active {
+    transform: scale(.95);
+}
+.code-item {
+    font-family: Consolas,"courier new";
+    color: crimson;
+    background-color: #f1f1f1;
+    padding: 0.5rem;
 }
 
-header p {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #ccc;
+.footer {
+        background-color: #00bdd6;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+}
+.footer-item {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+.footer-item a {
+        text-decoration: none;
+        color: black;
 }
 
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
-section {
-    margin-bottom: 20px;
-}
 
-section h2 {
-    color: #333;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 5px;
-}
 
-ul, ol {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-}
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #333;
-    color: #fff;
-}
-
-footer .author-info,
-footer .license-info,
-footer .project-structure {
-    margin-bottom: 20px;
-}
-
-.author-info a {
-    color: #fff;
-}
-
-.author-info a:hover {
-    text-decoration: underline;
-}
-
-.project-structure ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.project-structure ul li {
-    margin-bottom: 5px;
-    color: #ccc;
-}
-
-.license-info p {
-    color: #ccc;
-}
